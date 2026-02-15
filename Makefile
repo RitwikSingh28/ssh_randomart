@@ -17,9 +17,12 @@ SRCS = $(SRC_DIR)/main.c
 # Object files
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
 
-.PHONY: all clean
+.PHONY: all clean run
 
 all: $(BUILD_DIR) $(BUILD_DIR)/$(TARGET)
+
+run: all
+	./$(BUILD_DIR)/$(TARGET)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
