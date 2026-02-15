@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -45,6 +46,15 @@ void render_pixels(Color (*f)(Vector2)) {
 
 }
 
+Color another_generator(Vector2 vector2) {
+    if (vector2.x * vector2.y > 0) {
+        return (Color) {vector2.x, vector2.y, 1};
+    }
+
+    float r = fmod(vector2.x, vector2.y); 
+    return (Color) {r, r, r};
+}
+
 Color gray_gradient(Vector2 vector2) {
      return (Color) {
         .r = vector2.x,
@@ -55,7 +65,7 @@ Color gray_gradient(Vector2 vector2) {
 
 int main(void) {
     // Populate the pixels
-    render_pixels(gray_gradient);
+    render_pixels(another_generator);
 
     // write the pixels to hard-disk
     const char* output_path = "output.png";
