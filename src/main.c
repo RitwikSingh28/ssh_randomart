@@ -41,17 +41,13 @@ void render_pixels(Color (*f)(Vector2)) {
             pixels[index].a = 255;
         }
     }
-
-    
-
 }
 
 Color another_generator(Vector2 vector2) {
     if (vector2.x * vector2.y > 0) {
         return (Color) {vector2.x, vector2.y, 1};
     }
-
-    float r = fmod(vector2.x, vector2.y); 
+    float r = fmod(vector2.x + 1e-4, vector2.y + 1e-4);
     return (Color) {r, r, r};
 }
 
