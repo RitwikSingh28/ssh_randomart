@@ -8,6 +8,39 @@
 #define WIDTH 500
 #define HEIGHT 500
 
+typedef enum {
+    NK_X,
+    NK_Y,
+    NK_NUMBER,
+    NK_ADD,
+    NK_MUL,
+    NK_TRIPLE
+} Node_Kind;
+
+typedef struct Node Node;
+
+typedef struct {
+    Node* lhs;
+    Node* rhs;
+} Node_BinaryOperation;
+
+typedef struct {
+    Node* first;
+    Node* second;
+    Node* third;
+} Node_Triple;
+
+typedef union {
+    float number;
+    Node_BinaryOperation binary_operation;
+    Node_Triple triple;
+} Node_As;
+
+struct Node {
+    Node_Kind kind;
+    Node_As as;
+};
+
 typedef struct {
     uint8_t r;
     uint8_t g;
@@ -44,10 +77,10 @@ void render_pixels(Color (*f)(Vector2)) {
 }
 
 Color another_generator(Vector2 vector2) {
-    if (vector2.x * vector2.y > 0) {
+    if (vector2.x * vector2.y >= 0) {
         return (Color) {vector2.x, vector2.y, 1};
     }
-    float r = fmod(vector2.x + 1e-4, vector2.y + 1e-4);
+    float r = fmod(vector2.x, vector2.y);
     return (Color) {r, r, r};
 }
 
